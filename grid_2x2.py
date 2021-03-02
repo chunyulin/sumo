@@ -25,7 +25,7 @@ def gen_grid(fname, lanes):
     os.system("netgenerate --tls.guess -S 20 -o {} --grid --grid.number=2  -L{} --grid.length=700 --grid.attach-length=300 --turn-lanes 1 --turn-lanes.length 100 --tls.left-green.time 10".format(fname, lanes))
     # max 20 m/s
 	
-def generate_flow_2(fname):
+def NOT_USED_generate_flow_2(fname):
     with open(fname, "w") as f:
         print("<routes>", file=f)
         print('  <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="4.8" departSpeed="max" maxSpeed="20" speedFactor="1.0" speedDev="0.1"/>', file=f)
