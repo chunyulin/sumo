@@ -71,8 +71,10 @@ def update_carstat():
 
 def measure():
     edges = traci.edge.getIDList()
-    n = list(map(traci.edge.getLastStepVehicleNumber, edges))
-    print("    -- #car: ",  list(map(traci.edge.getLastStepVehicleNumber, edges)))
+    #n = list(map(traci.edge.getLastStepVehicleNumber, edges))
+    #print("    -- #car: ",  list(map(traci.edge.getLastStepVehicleNumber, edges)))
+    for e in edges:
+        print(" edge id: {:30}   # car: {:5d}".format(e, traci.edge.getLastStepVehicleNumber(e)))
 
 tls = ["A0"]		
 def control():
