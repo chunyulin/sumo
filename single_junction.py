@@ -93,6 +93,7 @@ def measure():
 tls = ["A0"]		
 def control():
     print("    -- TL modes: ", list(map(traci.trafficlight.getPhase, tls)))
+    #mode = traci.trafficlight.getPhase("A0")  ## get the current mode. In four-junction case, the junction node is named [A0, A1, B0, B1]
     #traci.trafficlight.setPhase("A0", 0)  ## mode-0 (2)  y1,3
     #traci.trafficlight.setPhase("A0", 1)  ## mode-4 (6)  y5,7
 
