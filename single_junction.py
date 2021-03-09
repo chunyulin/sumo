@@ -7,7 +7,7 @@ import sys
 import optparse
 import random
 import colorsys
-import pyqubo
+#import pyqubo
 from sumolib import checkBinary  # noqa
 import traci  # noqa
 
@@ -71,15 +71,30 @@ def update_carstat():
 
 def measure():
     edges = traci.edge.getIDList()
-    #n = list(map(traci.edge.getLastStepVehicleNumber, edges))
+    lanes = traci.lane.getIDList()
+	#n = list(map(traci.edge.getLastStepVehicleNumber, edges))
     #print("    -- #car: ",  list(map(traci.edge.getLastStepVehicleNumber, edges)))
+    print(dir(traci.edge))
     for e in edges:
-        print(" edge id: {:30}   # car: {:5d}".format(e, traci.edge.getLastStepVehicleNumber(e)))
+        en = traci.edge.getLastStepVehicleNumber(e)
+        hc = traci.edge.getLastStepHaltingNumber(e)
+        oc = traci.edge.getLastStepOccupancy(e)
+        ms = traci.edge.getLastStepMeanSpeed(e)
+        print(" edge id: {:30} # car: {:5d} Halt: {:5} Ocu: {:5} MVel: {:5}  ".format(e, en, hc, oc, ms))
+
+    for l in lanes:
+        en = traci.lane.getLastStepVehicleNumber(l)
+        hc = traci.lane.getLastStepHaltingNumber(l)
+        oc = traci.lane.getLastStepOccupancy(l)
+        ms = traci.lane.getLastStepMeanSpeed(l)
+        sp = traci.lane.getMaxSpeed(l)
+        print(" lane id: {:30} sp:{:3} # car: {:5d} Halt: {:5} Ocu: {:5} MVel: {:5}".format(l, sp, en, hc, oc, ms))
 
 tls = ["A0"]		
 def control():
     print("    -- TL modes: ", list(map(traci.trafficlight.getPhase, tls)))
-    #traci.trafficlight.setPhase("A0", 1)  ## mode from 0-7
+    #traci.trafficlight.setPhase("A0", 0)  ## mode-0 (2)  y1,3
+    #traci.trafficlight.setPhase("A0", 1)  ## mode-4 (6)  y5,7
 
 def run():
     info()
