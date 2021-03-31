@@ -24,27 +24,6 @@ def gen_grid(fname, lanes):
 	#os.system("netgenerate  -j traffic_light -S 20 -o {} --grid --grid.number=2  -L{} --grid.length=200 --grid.attach-length=200".format(fname, lanes))  
     os.system("netgenerate --tls.guess -S 20 -o {} --grid --grid.number=2  -L{} --grid.length=700 --grid.attach-length=300 --turn-lanes 1 --turn-lanes.length 100 --tls.left-green.time 10".format(fname, lanes))
     # max 20 m/s
-	
-def NOT_USED_generate_flow_2(fname):
-    with open(fname, "w") as f:
-        print("<routes>", file=f)
-        print('  <vType id="t1" accel="0.8" decel="4.5" sigma="0.5" length="4.8" departSpeed="max" maxSpeed="20" speedFactor="1.0" speedDev="0.1"/>', file=f)
-        ids = dict()
-        ids["left0A0"]   = ["A1top0","B1top1","B0right0","B1right1","A0bottom0","B0bottom1"]
-        ids["left1A1"]   = ["A1top0","B1top1","B0right0","B1right1","A0bottom0","B0bottom1"]
-        ids["top0A1"]    = ["A0left0","A1left1","B0right0","B1right1","A0bottom0","B0bottom1"]
-        ids["top1B1"]    = ["A0left0","A1left1","B0right0","B1right1","A0bottom0","B0bottom1"]
-        ids["right0B0"]  = ["A0left0","A1left1","A1top0","B1top1","A0bottom0","B0bottom1"]
-        ids["right1B1"]  = ["A0left0","A1left1","A1top0","B1top1","A0bottom0","B0bottom1"]
-        ids["bottom0A0"] = ["A0left0","A1left1","A1top0","B1top1","B0right0","B1right1"]
-        ids["bottom1B0"] = ["A0left0","A1left1","A1top0","B1top1","B0right0","B1right1"]
-        count = 1
-        for k in ids:
-          for v in ids[k]:
-            print('  <flow id="vf{}" type="t1" from="{}" to="{}" departLane="random" begin="0" end= "3600" probability="0.1" />'.format(count, k, v), file=f)
-            count += 1
-
-        print("</routes>", file=f)
 		
 def gen_taz(afile):
     with open(afile, "w") as f:
@@ -75,14 +54,29 @@ def gen_flow_from_od(outflow, taz, od):
     ### duarouter --route-files=.\trip.gen.xml --net-file=.\net.net.xml --output-file=route.gen.xml --taz-files=.\taz.xml --with-taz
 
 def info():
-    print("Edges: ", traci.edge.getIDList())
-    print("Junctions: ", traci.junction.getIDList())
+
+    edges=traci.edge.getIDList()
+    for e in edges:
+        if e[0]!=':': 
+            print(" E: ", e)
+            
     tls = traci.trafficlight.getIDList()
-    print("Traffic Light: ", tls)
     for t in tls:
-       print(" --",t, ":", traci.trafficlight.getAllProgramLogics(t))
-    
-	
+       #clanes = traci.trafficlight.getControlledLanes(t)
+       #for clane in clanes: print("    Lane: ", clane)
+       print("=== TL: ", t)
+       phases = traci.trafficlight.getAllProgramLogics(t)[0].getPhases()
+       for p in phases:
+            print(p.state)
+       
+       clinks = traci.trafficlight.getControlledLinks(t)
+       for cl in clinks:
+            print("    Link: ", cl)
+            
+    juncs = traci.junction.getIDList()
+    for j in juncs:
+        if j[0]!=':': print(" J: ",j)
+        
 def update_carstat():
    cars = traci.vehicle.getIDList()
    for c in cars:
@@ -98,23 +92,19 @@ def measure():
 tls = ["A0", "A1", "B0", "B1"]		
 def control():
     print(" -- TL modes: ", list(map(traci.trafficlight.getPhase, tls)))
-	#traci.trafficlight.setPhase("A0", 1)
 
 def run():
     """execute the TraCI control loop"""
 
-    info()
     step = 0
     while step < 3600:
         traci.simulationStep()
         update_carstat()
         if step%5 == 0: 
           print("Step: {:5}  # Car: {}".format(step, traci.vehicle.getIDCount()))
-          measure()
+          #measure()
         
-        if step%10 == 0:
-          control()
-
+        #if step%10 == 0: control()
         step += 1
     
     traci.close()
@@ -142,8 +132,10 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
-
+     
     traci.start([sumoBinary, "-c", "main.sumocfg", "--statistic-output" , "stat.log"])
-	
+
+    info()
+
     run()
 	
