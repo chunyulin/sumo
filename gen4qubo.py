@@ -108,6 +108,8 @@ if __name__ == "__main__":
     
     # From the generated table, we see that only the upstream lane is needed to build a minimal QUBO system.
     # More sophisticated QUBO cost function may be built from including also downstream lane.
+    # To including nearest neighbor correlation of a junction X, we may have to trace the network to find junctions Y with uptream lane equal to the downstream of X.
+    # A challange is that if the network contain may virtual node (w/o TL), the the tracing may not be so easy.
     print("=== QUBO coeff table ===")
     for i in cij:
         print (i)
