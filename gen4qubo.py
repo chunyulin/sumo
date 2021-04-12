@@ -13,9 +13,9 @@ import sumolib
 from sumolib import checkBinary  # noqa
 
 # Generate toy network system
-def gen_grid(fname, lanes):
+def gen_grid(fname, lanes, grids = 2):
 	#os.system("netgenerate  -j traffic_light -S 20 -o {} --grid --grid.number=2  -L{} --grid.length=200 --grid.attach-length=200".format(fname, lanes))  
-    os.system("netgenerate --tls.guess -S 20 -o {} --grid --grid.number=1  -L{} --grid.length=700 --grid.attach-length=300 --turn-lanes 1 --turn-lanes.length 100 --tls.left-green.time 10".format(fname, lanes))
+    os.system("netgenerate --tls.guess -S 20 -o {} --grid --grid.number={}  -L{} --grid.length=700 --grid.attach-length=300 --turn-lanes 1 --turn-lanes.length 100 --tls.left-green.time 10".format(fname, grids, lanes))
     # max 20 m/s
 		
 # Generate traffic zone file
@@ -63,12 +63,13 @@ def genLane2modeTbl(modes):
 if __name__ == "__main__":
 
     lanes = 2
+    grids = 2
     ODFILE   = "od.txt"          ## in
     NETFILE  = "gen.net.xml"
     TAZFILE  = "gen.taz.xml"
     FLOWFILE = "gen.flow.xml"
     
-    gen_grid(NETFILE, lanes)
+    gen_grid(NETFILE, lanes, grids)
     gen_taz(TAZFILE)
     gen_flow_from_od(FLOWFILE, TAZFILE, ODFILE)
 
