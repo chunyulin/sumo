@@ -53,7 +53,7 @@ def gen_flow_from_od(outflow, taz, od):
 def genLane2modeTbl(modes):
     lane2mode = dict()
     for mi, m in zip(range(len(modes)), modes):
-        state = m.state   ## return 'GGGrrr.....'
+        state = m.state   ## return, say, "GGGrrrrrrrGGGrrrrrrr" for 20 lanes
         for i in range(len(state)):
             if state[i] == 'G' or state[i] == 'g':
                 lane2mode[i] =  mi
