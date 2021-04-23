@@ -160,7 +160,7 @@ def get_options():
 if __name__ == "__main__":
     options = get_options()
 
-    gen_flow_from_od("gen.flow.xml", "taichung.taz.xml", "od.txt")   # gen flow demand
+    gen_flow_from_od("gen.flow.xml", "tc.taz.xml", "od.txt")   # gen flow demand
 
     if options.nogui:
         sumoBinary = checkBinary('sumo')
