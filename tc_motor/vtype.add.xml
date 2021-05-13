@@ -1,0 +1,7 @@
+<!-- See https://sumo.dlr.de/docs/Vehicle_Type_Parameter_Defaults.html -->
+<routes>
+    <vType id="car"   vClass="passenger"/>
+    <vType id="motor" vClass="moped"/>
+    <vType id="truck" vClass="truck"/>
+    <vType id="trailer" vClass="trailer"/>
+</routes>

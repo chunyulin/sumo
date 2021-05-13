@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/13/21 15:53:29 by Eclipse SUMO netedit Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\NCHCDrive\qubo\test\osm.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\NCHCDrive\qubo\test\osm.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="D:\NCHCDrive\qubo\test\taz.add.xml"/>
+        <TLSPrograms-output value="D:\NCHCDrive\qubo\test\tls.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="bottom" shape="1037.30,442.98 867.22,-8.39 932.64,-30.20 1104.90,428.81 1037.30,442.98" color="blue">
+        <tazSink id="bottom0" weight="1.00"/>
+        <tazSource id="bottom0" weight="1.00"/>
+        <tazSink id="bottom1" weight="1.00"/>
+        <tazSource id="bottom1" weight="1.00"/>
+    </taz>
+    <taz id="left" shape="196.92,957.44 416.40,945.45 399.61,709.18 210.11,713.98 196.92,957.44" color="blue">
+        <tazSink id="109505014#1" weight="1.00"/>
+        <tazSource id="109505014#1" weight="1.00"/>
+        <tazSink id="55868123#6" weight="1.00"/>
+        <tazSource id="55868123#6" weight="1.00"/>
+        <tazSink id="751583162" weight="1.00"/>
+        <tazSource id="751583162" weight="1.00"/>
+        <tazSink id="left0" weight="1.00"/>
+        <tazSource id="left0" weight="1.00"/>
+        <tazSink id="left1" weight="1.00"/>
+        <tazSource id="left1" weight="1.00"/>
+    </taz>
+    <taz id="right" shape="1793.09,855.86 1773.43,787.88 2008.53,709.24 2024.09,772.31 1790.63,852.59 1790.63,852.59 1793.09,855.86" color="blue">
+        <tazSink id="-444810789#0" weight="1.00"/>
+        <tazSource id="-444810789#0" weight="1.00"/>
+        <tazSink id="-444810789#1" weight="1.00"/>
+        <tazSource id="-444810789#1" weight="1.00"/>
+        <tazSink id="-444810802#1" weight="1.00"/>
+        <tazSource id="-444810802#1" weight="1.00"/>
+        <tazSink id="-444810802#2" weight="1.00"/>
+        <tazSource id="-444810802#2" weight="1.00"/>
+        <tazSink id="-724870793" weight="1.00"/>
+        <tazSource id="-724870793" weight="1.00"/>
+        <tazSink id="-886398470" weight="1.00"/>
+        <tazSource id="-886398470" weight="1.00"/>
+        <tazSink id="292749363#3" weight="1.00"/>
+        <tazSource id="292749363#3" weight="1.00"/>
+        <tazSink id="292749363#4" weight="1.00"/>
+        <tazSource id="292749363#4" weight="1.00"/>
+        <tazSink id="444810789#0" weight="1.00"/>
+        <tazSource id="444810789#0" weight="1.00"/>
+        <tazSink id="444810789#1" weight="1.00"/>
+        <tazSource id="444810789#1" weight="1.00"/>
+        <tazSink id="444810802#1" weight="1.00"/>
+        <tazSource id="444810802#1" weight="1.00"/>
+        <tazSink id="444810802#2" weight="1.00"/>
+        <tazSource id="444810802#2" weight="1.00"/>
+        <tazSink id="724870793" weight="1.00"/>
+        <tazSource id="724870793" weight="1.00"/>
+        <tazSink id="886398470" weight="1.00"/>
+        <tazSource id="886398470" weight="1.00"/>
+        <tazSink id="886398472" weight="1.00"/>
+        <tazSource id="886398472" weight="1.00"/>
+        <tazSink id="886398488#1" weight="1.00"/>
+        <tazSource id="886398488#1" weight="1.00"/>
+        <tazSink id="886398488#2" weight="1.00"/>
+        <tazSource id="886398488#2" weight="1.00"/>
+        <tazSink id="right0" weight="1.00"/>
+        <tazSource id="right0" weight="1.00"/>
+        <tazSink id="right1" weight="1.00"/>
+        <tazSource id="right1" weight="1.00"/>
+    </taz>
+    <taz id="top" shape="1409.06,1678.08 1367.45,1530.58 1456.23,1504.68 1501.08,1662.36 1408.14,1676.69 1408.14,1676.69 1409.06,1678.08" color="blue">
+        <tazSink id="941902177#2" weight="1.00"/>
+        <tazSource id="941902177#2" weight="1.00"/>
+        <tazSink id="top0" weight="1.00"/>
+        <tazSource id="top0" weight="1.00"/>
+        <tazSink id="top1" weight="1.00"/>
+        <tazSource id="top1" weight="1.00"/>
+        <tazSink id="top2" weight="1.00"/>
+        <tazSource id="top2" weight="1.00"/>
+        <tazSink id="top3" weight="1.00"/>
+        <tazSource id="top3" weight="1.00"/>
+    </taz>
+</additional>
