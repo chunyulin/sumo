@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="tc.net.xml"/>
-        <route-files value="gen.car.flow.xml,gen.motor.flow.xml,gen.truck.flow.xml,gen.trailer.flow.xml"/>
+        <route-files value="gen.car.flow.xml,gen.motor.flow.xml"/>
         <additional-files value="taz.add.xml,vtype.add.xml"/>
     </input>	
 	

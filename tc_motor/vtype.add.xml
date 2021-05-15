@@ -1,7 +1,8 @@
-<!-- See https://sumo.dlr.de/docs/Vehicle_Type_Parameter_Defaults.html -->
+<additional>
 <routes>
-    <vType id="car"   vClass="passenger"/>
-    <vType id="motor" vClass="moped"/>
+    <vType id="car"   maxSpeed="23" vClass="passenger"/>
+    <vType id="motor" maxSpeed="20" vClass="moped"/>
     <vType id="truck" vClass="truck"/>
     <vType id="trailer" vClass="trailer"/>
 </routes>
+</additional>

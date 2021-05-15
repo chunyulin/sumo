@@ -1,0 +1,56 @@
+## Snippet
+python tools/osmGet.py   --bbox 120.596,24.195,120.615,24.222 -d c:\qubo\target
+python tools/osmBuild.py --osm-file C:\qubo\test\osm_bbox.osm.xml -d c:\qubo\target
+
+## List of (42) connections: real senario
+-- Dongda to the south
+   32 (mR), 33, 34(mL), 35-36 (R), 37-38, 39(R), 40-41  
+   0-3, 4-5 (L)
+-- Kuyuan to the west
+   6 (mR), 7, 8 (mL), 9-10 (R), 11, 12, 13(L)
+-- Dongda to the north
+   14 (mR), 15, 16 (mL)
+   17 (R), 18-21, 22-23 (L)
+-- Kuyuan to the east
+   24 (mR), 25, 26 (mL), 27-28 (R), 29-30, 31(L)
+
+real   
+GGGGrrrrrrrrrrGGGGGGGGrrrrrrrrrrGGGGGGGGGG
+yyyyrrrrrrrrrryyyyyyyyrrrrrrrrrryyyyyyyyyy
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrrrrrrrrrr
+rrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrr  
+rrrrrryyyyyyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrGGGGGGGGrrrrrrrrrr  
+rrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
+p1
+GGGGrrrrrrrrrGGGGGGGGrrrrrrrrrrGGGGGGGGGG
+yyyyrrrrrrrrryyyyyyyyrrrrrrrrrryyyyyyyyyy
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrGGrrrrrrrrrrrrrrrGGrrrrrrrrrrrrrrrrrr
+rrrryyrrrrrrrrrrrrrrryyrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrGGGGGGrrrrrrrrrrrGGGGGGGrrrrrrrrrrr  
+rrrrrryyyyyyrrrrrrrrrrryyyyyyyrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrGrrrrrrrrrrrrrrrrrGrrrrrrrrrr  
+rrrrrrrrrrrryrrrrrrrrrrrrrrrrryrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+  
+## List of (32) connections: real senario
+-- Dongda to the south
+   0 (mR), 1 (R), 2 (m), 3 (mL), 4-5
+   6-8, 9(L)
+-- Kuyuan to the west
+   10 (mR), 11, 12 (mL), 13 (R), 14-15, 16(L)
+-- Dongda to the north
+   17 (mR), 18, 19 (mL)
+   20 (R), 21-22, 23-24 (L)
+-- Kuyuan to the east
+  25 (mR), 26, 27 (mL), 28 (R), 29, 30, 31(L)
+  

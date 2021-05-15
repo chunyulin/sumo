@@ -23,23 +23,23 @@ from pyqubo import Binary
 from pyqubo import Array
 import re
 
+    
+def get_options():
+    optParser = optparse.OptionParser()
+    optParser.add_option("--nogui", action="store_true",
+                         default=False, help="run the commandline version of sumo")
+    optParser.add_option("--nogenflow", action="store_true",
+                         default=False, help="Don't regenerate flow files")
+    optParser.add_option("-p",  action="store", type="string", dest="prog",default="real")
+    options, args = optParser.parse_args()
+    return options
+
 def gen_flow_from_od(vtype, outflow, taz, od, scale = 1):
 	os.system("od2trips --vtype={} --prefix={} --taz-files={} --od-matrix-files={} --flow-output={} --scale={} --verbose=true --departpos=random"
         .format(vtype, vtype, taz, od, outflow, scale))	
     ### generate trip instead of flow:   od2trips  -d .\od.txt -n .\taz.xml -o trip.gen.xml 
     ### duarouter --route-files=.\trip.gen.xml --net-file=.\net.net.xml --output-file=route.gen.xml --taz-files=.\taz.xml --with-taz
     
-def info():
-    print("##### Edges: ", traci.edge.getIDList())
-    print("##### Junctions: ", traci.junction.getIDList())
-    tls = traci.trafficlight.getIDList()
-    print("##### Traffic Light: ", tls)
-    print("#####  TL modes: ", list(map(traci.trafficlight.getPhase, tls)))
-    for t in tls:
-       print(" --",t, ":", traci.trafficlight.getAllProgramLogics(t))
-
-    #mode = traci.trafficlight.getPhase("A0")  ## get the current mode. In four-junction case, the junction node is named 
-       
 def update_color():
    cars = traci.vehicle.getIDList()
    for c in cars:
@@ -118,35 +118,67 @@ def run():
         nextphase[s] = 0     ## next phase
         duration[s]  = 0     ## how long it has been in "cphase"
         
-    info()
     step = 0
     while step < 3600:
     
         traci.simulationStep()
-        update_color()
+        #update_color()
         step += 1
        
-    
-def get_options():
-    optParser = optparse.OptionParser()
-    optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
-    options, args = optParser.parse_args()
-    return options
+def showTLS(tid):   
+    print("=== Traffic light ID : {} ===".format(tid))
+    # programID='0', type=0, currentPhaseIndex=0, phases=[Phase]
+    #   Phase: (duration=14.0, state='rrrr', minDur=14.0, maxDur=14.0)
+    p = traci.trafficlight.getProgram(tid)
+    print("Current program : ", p)
+    print("Current Phase   : ", traci.trafficlight.getPhase(tid))
+    print("State           : ", traci.trafficlight.getRedYellowGreenState(tid)) 
 
+    progs = traci.trafficlight.getAllProgramLogics(tid)
+    for p in progs:
+        print("Program name: ", p.programID)
+        co = 0
+        for m in p.phases:
+            print (" {:2d}: {}".format(co, m.state))
+            co +=1
+
+def showConnAt(tid):
+    print("=== Connnections at {} ===".format(tid))
+    links = traci.trafficlight.getControlledLinks(tid)
+    co=0
+    for li in links:
+      print (" {:2d}: {}".format(co, li))
+      co +=1
+        
+def showNet():
+    print("=== Basic network information ===")
+    print("  # of Edges: ", len(traci.edge.getIDList()))
+    print("  # of Junctions: ", len(traci.junction.getIDList()))
+    tls = traci.trafficlight.getIDList()
+    print("  Traffic Lights: ", tls)
+
+
+    #mode = traci.trafficlight.getPhase("A0")  ## get the current mode. In four-junction case, the junction node is named 
+       
 
 if __name__ == "__main__":
     options = get_options()
 
-    if 1:
-        gen_flow_from_od("car",     "gen.car.flow.xml",     "taz.add.xml", "od.txt", 1)
-        gen_flow_from_od("motor",   "gen.motor.flow.xml",   "taz.add.xml", "od.txt", 1)    
-        gen_flow_from_od("truck",   "gen.truck.flow.xml",   "taz.add.xml", "od.txt", 0.02)
-        gen_flow_from_od("trailer", "gen.trailer.flow.xml", "taz.add.xml", "od.txt", 0.0001)
+    if not options.nogenflow:
+        gen_flow_from_od("car",     "gen.car.flow.xml",     "taz.add.xml", "od.txt",    1)
+        gen_flow_from_od("motor",   "gen.motor.flow.xml",   "taz.add.xml", "od.txt",  0.5)    
+        gen_flow_from_od("truck",   "gen.truck.flow.xml",   "taz.add.xml", "od.txt",  0.01)
+        gen_flow_from_od("trailer", "gen.trailer.flow.xml", "taz.add.xml", "od.txt",  0.01)
 
     sumoBinary = checkBinary('sumo-gui')
-    traci.start([sumoBinary, "-c", "tc.sumocfg", "--statistic-output" , "stat.log", "--lateral-resolution=1.0", "--threads=2"])
+    traci.start([sumoBinary, "-c", "tc.sumocfg", "--statistic-output", "stat.log", 
+                                "--lateral-resolution=1.1", "--threads=1", "--ignore-junction-blocker=-1"])
 	
+    traci.trafficlight.setProgram("A0", options.prog)
+    showNet()
+    showConnAt("A0")
+    showTLS("A0")
+    
     run()
     traci.close()
     sys.stdout.flush()

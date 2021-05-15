@@ -1,0 +1,37 @@
+<additional>
+    <tlLogic id="A0" type="static" programID="real" offset="0">
+        <phase duration="45" state="GGGGrrrrrrrrrrGGGGGGGGrrrrrrrrrrGGGGGGGGGG"/>
+        <phase duration="4"  state="yyyyrrrrrrrrrryyyyyyyyrrrrrrrrrryyyyyyyyyy"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="22" state="rrrrrrGGGGGGGGrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrryyyyyyyyrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="24" state="rrrrrrrrrrrrrrrrrrrrrrrrGGGGGGGGrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrryyyyyyyyrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+    <tlLogic id="A0" type="static" programID="p1" offset="0">
+        <phase duration="45" state="GGGGrrrrrrrrrrGGGGGGGGrrrrrrrrrrGGGGGGGGGG"/>
+        <phase duration="4"  state="yyyyrrrrrrrrrryyyyyyyyrrrrrrrrrryyyyyyyyyy"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="22" state="rrrrrrGGGGGGGrrrrrrrrrrrGGGGGGGrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrryyyyyyyrrrrrrrrrrryyyyyyyrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="24" state="rrrrrrrrrrrrrGrrrrrrrrrrrrrrrrrGrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrryrrrrrrrrrrrrrrrrryrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+  <WAUT startProg="0" refTime="10" id="w1"><!--Start from t0=10s -->
+    <wautSwitch to="real" time="3600"></wautSwitch>
+    <wautSwitch to="p1"   time="3600"></wautSwitch>
+  </WAUT>
+
+  <wautJunction junctionID="A0" wautID="w1"></wautJunction>
+    
+</additional>
