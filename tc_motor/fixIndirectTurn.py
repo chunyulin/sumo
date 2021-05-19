@@ -1,27 +1,27 @@
 #!/usr/bin/env python
+
+"""
+Given a net.xml with customized indirect-turn connections with linkIndex2 set,
+the code adjust the start/end point of customized connections to be that of the incoming/outgoint lane point,
+and calculate the suiable contPos.  
+"""
+
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
-import sys
 import numpy as np
-import random
 import optparse
-import colorsys
-import pyqubo
 from sumolib import checkBinary  # noqa
-import traci  # noqa
-import neal
 
-from io import StringIO
-from xml.dom import pulldom
-from xml.dom import Node
+#from io import StringIO
+#from xml.dom import pulldom
+#from xml.dom import Node
 from optparse import OptionParser
-from subprocess import call
-from collections import defaultdict
+#from subprocess import call
+#from collections import defaultdict
 
 import xml.etree.ElementTree as ET
-import copy
+#import copy
 import re
 
 
@@ -79,15 +79,20 @@ def modifyIndirectLeftTurnConnection(tree):
             print("Target: ", a['shape'])
         
         
-def main(fileName):
-    tree = ET.parse(fileName)
+def main(args=None):
+    optParser = OptionParser()
+    optParser.add_option("-i", "--input", dest="input", metavar="FILE",
+                         help="Defines the input file to use")
+    optParser.add_option("-o", "--output", dest="output", metavar="FILE", default="output.net.xml")
+    options, args = optParser.parse_args()
+ 
+    tree = ET.parse(options.input)
     root = tree.getroot()
     modifyIndirectLeftTurnConnection(tree)
 
     
-    tree.write('output.net.xml')
+    tree.write(options.output)
     
-    
-    
+        
 if __name__ == "__main__":
-  main("tc.net.xml")
+  main()

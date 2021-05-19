@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Mar  9 11:33:37 2021
-
-@author: Amit
-"""
-
 #!/usr/bin/env python
 from __future__ import absolute_import
 from __future__ import print_function
@@ -15,14 +8,20 @@ import numpy as np
 import random
 import optparse
 import colorsys
+import re
+
 import pyqubo
-from sumolib import checkBinary  # noqa
-import traci  # noqa
 import neal
 from pyqubo import Binary
 from pyqubo import Array
-import re
 
+from sumolib import checkBinary
+import traci
+
+
+NUM_PHASE=12  ### Total number of phases
+NSET = 3      ### Number of phases in a group (3 for G/Y/R)
+OPT_PERSEC = 10
     
 def get_options():
     optParser = optparse.OptionParser()
@@ -31,50 +30,24 @@ def get_options():
     optParser.add_option("--nogenflow", action="store_true",
                          default=False, help="Don't regenerate flow files")
     optParser.add_option("-p",  action="store", type="string", dest="prog",default="real")
+    optParser.add_option("--dt",  action="store", type="float", dest="dt",default=0.5)
+    optParser.add_option("--end",  action="store", type="float", dest="end",default=600)
     options, args = optParser.parse_args()
     return options
 
 def gen_flow_from_od(vtype, outflow, taz, od, scale = 1):
-	os.system("od2trips --vtype={} --prefix={} --taz-files={} --od-matrix-files={} --flow-output={} --scale={} --verbose=true --departpos=random"
-        .format(vtype, vtype, taz, od, outflow, scale))	
-    ### generate trip instead of flow:   od2trips  -d .\od.txt -n .\taz.xml -o trip.gen.xml 
-    ### duarouter --route-files=.\trip.gen.xml --net-file=.\net.net.xml --output-file=route.gen.xml --taz-files=.\taz.xml --with-taz
-    
-def update_color():
-   cars = traci.vehicle.getIDList()
-   for c in cars:
-     v = traci.vehicle.getSpeed(c)/ traci.vehicle.getMaxSpeed(c)
-     r,g,b = colorsys.hsv_to_rgb(1-v, 1.0, 1.0)
-     traci.vehicle.setColor(c, (255*r, 255*g, 255*b))	  	
+	os.system("od2trips --vtype={} --prefix={} --taz-files={} --od-matrix-files={} --flow-output={} --scale={} --verbose=true --departpos=random".format(vtype, vtype, taz, od, outflow, scale))	
 
 def measure():
-    #edges = traci.edge.getIDList()
-    #lanes = traci.lane.getIDList()
     coeff_list = np.zeros(4)
-    ## waiting TD           ( -coff * m0 )
-    coeff_list[0] = traci.lane.getLastStepVehicleNumber('top0A0.350.00_0') + \
-                    traci.lane.getLastStepVehicleNumber('top0A0.350.00_1') + \
-                    traci.lane.getLastStepVehicleNumber('bottom0A0.350.00_0') + \
-                    traci.lane.getLastStepVehicleNumber('bottom0A0.350.00_1')
-    ## waiting TD left-turn ( -coff * m2 )                
-    coeff_list[1] = traci.lane.getLastStepVehicleNumber('top0A0.350.00_2') + \
-                    traci.lane.getLastStepVehicleNumber('bottom0A0.350.00_2')
-    ## waiting LR           ( -coff * m4 ) ## more car stuck behind, more probable the phase is
-    coeff_list[2] = traci.lane.getLastStepVehicleNumber('left0A0.350.00_0') + \
-                    traci.lane.getLastStepVehicleNumber('left0A0.350.00_1') + \
-                    traci.lane.getLastStepVehicleNumber('right0A0.350.00_0') + \
-                    traci.lane.getLastStepVehicleNumber('right0A0.350.00_1')
-    ## waiting LR left-turn ( -coff * m6 )
-    coeff_list[3] = traci.lane.getLastStepVehicleNumber('left0A0.350.00_2') + \
-                    traci.lane.getLastStepVehicleNumber('right0A0.350.00_2')
-    ## TODO: try other functions like"
-    # getLastStepHaltingNumber(e)
-    # getLastStepOccupancy(e)
-    # getLastStepMeanSpeed(e)
-    # traci.lane.getMaxSpeed(l)  # only for lane
-    
+    ## ( -coff * m0 )
+    coeff_list[0] = traci.multientryexit.getLastStepVehicleNumber('e3top') + \
+                    traci.multientryexit.getLastStepVehicleNumber('e3bottom')
+    coeff_list[1] = traci.multientryexit.getLastStepVehicleNumber('e3top')    * 0.2 + \
+                    traci.multientryexit.getLastStepVehicleNumber('e3bottom') * 0.2   ## assume 20% for left-turn
+    coeff_list[2] = traci.multientryexit.getLastStepVehicleNumber('e3right')
+    coeff_list[3] = traci.multientryexit.getLastStepVehicleNumber('e3left')
     return coeff_list
-
 
 x = Array.create('x', shape=(4), vartype='BINARY')
 Q_mode_constrain = (1 - sum(x))**2
@@ -90,45 +63,78 @@ def qubo(Coeff):
     decoded_samples = model.decode_sampleset(sampleset)
     best_sample = min(decoded_samples, key=lambda x: x.energy)
     opt = best_sample.sample
-    #print("SA-Opt:{}  Energy:{}".format(best_sample.sample, best_sample.energy) )
-    ## Q: Is it possiable to have more than one activate mode in a junction if lambda4 is too small ? 
-    ## Do we have to check that ?
-    
+    print("SA-Opt:{}  Energy:{}".format(best_sample.sample, best_sample.energy) )
     return opt
     
 def qubo2phase(qubo):
     for key in qubo:   ## x_{0j}
         if qubo[key] == 1:
-            # return 0,2,4,6        
-            return 2*int(key[2:-1]) 
+            # return 0,3,6,9        
+            return NSET*int(key[2:-1]) 
     
             
-def run():
+def run(end_time, d_time):
 
-    NUM_PHASE=8
-    TLSs = traci.trafficlight.getIDList()  # [A0, A1, B0, B1]
+    TLSs = traci.trafficlight.getIDList()  # [A0]
+    E3s = traci.multientryexit.getIDList()
+    print ("E3s: ", E3s)
     
     dt = dict()
     gt = dict()
     nextphase = dict()
     duration  = dict()
     for s in TLSs:
-        dt[s]        = 5     ## transition time
+        dt[s]        = 3     ## transition time
         gt[s]        = 30    ## minimal green/red  time
-        nextphase[s] = 0     ## next phase
-        duration[s]  = 0     ## how long it has been in "cphase"
+        nextphase[s] = 0     ## next phase, startrf from 0
+        duration[s]  = 0     ## how long the current phase has been
         
     step = 0
-    while step < 3600:
+    OPT_STEP = int(OPT_PERSEC / d_time)
+    
+    while step <= end_time / d_time:
     
         traci.simulationStep()
-        #update_color()
         step += 1
+       
+        # first, check the minimal duraiton for stability
+        run_opt = False
+        for s in TLSs:
+            traci.trafficlight.setPhase(s, nextphase[s])
+            if nextphase[s]%NSET>0:     ## if next is 'y|r', fixed time for yellow
+                if duration[s] <= dt[s] : 
+                    duration[s] += 1
+                else: 
+                    nextphase[s] = (nextphase[s] + 1)%NUM_PHASE
+                    duration[s] = 0
+                continue    
+            else:                        ## if next is 'g', check minimal time for red/green
+                duration[s] += 1
+                if duration[s] <= gt[s] : 
+                    continue    
+                else:                    ## only than to run the optimizer
+                    duration[s] += 1
+                    run_opt = True
+
+        if run_opt and (step%OPT_STEP == 0):
+            print("=== Step: {:5}  # Car: {}".format(step, traci.vehicle.getIDCount()))
+
+            Coeff = measure()
+            opt_qubo  = qubo(Coeff)
+            opt_phase = qubo2phase(opt_qubo) 
+            
+            for s in TLSs:
+                current_phase = traci.trafficlight.getPhase(s)
+                
+                # if the qubo tell signle should be changed
+                if abs(opt_phase - current_phase) > NSET-1:
+                    nextphase[s] = (current_phase + 1)%NUM_PHASE
+                    duration[s] = 0
+                    
+       
        
 def showTLS(tid):   
     print("=== Traffic light ID : {} ===".format(tid))
-    # programID='0', type=0, currentPhaseIndex=0, phases=[Phase]
-    #   Phase: (duration=14.0, state='rrrr', minDur=14.0, maxDur=14.0)
     p = traci.trafficlight.getProgram(tid)
     print("Current program : ", p)
     print("Current Phase   : ", traci.trafficlight.getPhase(tid))
@@ -158,9 +164,6 @@ def showNet():
     print("  Traffic Lights: ", tls)
 
 
-    #mode = traci.trafficlight.getPhase("A0")  ## get the current mode. In four-junction case, the junction node is named 
-       
-
 if __name__ == "__main__":
     options = get_options()
 
@@ -171,15 +174,19 @@ if __name__ == "__main__":
         gen_flow_from_od("trailer", "gen.trailer.flow.xml", "taz.add.xml", "od.txt",  0.01)
 
     sumoBinary = checkBinary('sumo-gui')
-    traci.start([sumoBinary, "-c", "tc.sumocfg", "--statistic-output", "stat.log", 
-                                "--lateral-resolution=1.1", "--threads=1", "--ignore-junction-blocker=-1"])
-	
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    
+    traci.start([sumoBinary, "-c", "tc.sumocfg", "--step-length={}".format(options.dt),
+        "--statistic-output=stat.log", "--summary=summary.log",
+        "--lateral-resolution=1.1", "--threads=1", "--ignore-junction-blocker=-1"])
+	    #  "--default.action-step-length=2", "--collision-output=collision.log",, "--full-output=full.log",
     traci.trafficlight.setProgram("A0", options.prog)
     showNet()
     showConnAt("A0")
     showTLS("A0")
     
-    run()
+    run(options.end, options.dt)
     traci.close()
     sys.stdout.flush()
 

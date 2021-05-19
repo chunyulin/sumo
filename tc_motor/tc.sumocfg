@@ -8,13 +8,9 @@
     <input>
         <net-file value="tc.net.xml"/>
         <route-files value="gen.car.flow.xml,gen.motor.flow.xml"/>
-        <additional-files value="taz.add.xml,vtype.add.xml"/>
+        <additional-files value="taz.add.xml,vtype.add.xml,e3reduced.add.xml"/>
     </input>	
 	
-    <time>
-        <begin value="0"/>
-	</time>
-
 	<processing>
         <collision.action value="remove"/>
 		<time-to-teleport value="-1"/>
@@ -24,6 +20,7 @@
     <report>
         <verbose value="true"/>
         <no-step-log value="true"/>
+        <step-log.period value="5"/>
     </report>
 
 </configuration>

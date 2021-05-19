@@ -1,6 +1,9 @@
-## Snippet
-python tools/osmGet.py   --bbox 120.596,24.195,120.615,24.222 -d c:\qubo\target
-python tools/osmBuild.py --osm-file C:\qubo\test\osm_bbox.osm.xml -d c:\qubo\target
+## Usage:
+0) use ./fixIndirectTurn.py to setup contPos automatically.
+1) Define the amount of traffic flow in od.txt and tc.py.
+2) Add detectos on netedit, or use ./add_detectors.bat to add detectors around all junction. (Only need to do once.)
+3) Run simulation "python ./tc.py --dt 0.5 --end 3600 -p real"
+
 
 ## List of (42) connections: real senario
 -- Dongda to the south
@@ -54,3 +57,16 @@ rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 -- Kuyuan to the east
   25 (mR), 26, 27 (mL), 28 (R), 29, 30, 31(L)
   
+
+## Snippet
+python tools/osmGet.py   --bbox 120.596,24.195,120.615,24.222 -d c:\qubo\target
+python tools/osmBuild.py --osm-file C:\qubo\test\osm_bbox.osm.xml -d c:\qubo\target
+
+### Add detectors auto
+python "C:\Program Files (x86)\Eclipse\Sumo\tools\output\generateTLSE1Detectors.py" -n .\tc.net.xml -o e1.add.xml -f 150
+python "C:\Program Files (x86)\Eclipse\Sumo\tools\output\generateTLSE2Detectors.py" -n .\tc.net.xml -o e2.add.xml -f 150
+python "C:\Program Files (x86)\Eclipse\Sumo\tools\output\generateTLSE3Detectors.py" -n .\tc.net.xml -o e3.add.xml -f 150 -j A0 --joined
+
+### xml2csv
+python "C:\Program Files (x86)\Eclipse\Sumo\tools\xml\xml2csv.py" .\e1output.xml -o e1.csv
+
