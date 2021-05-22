@@ -19,7 +19,7 @@
 
     <report>
         <verbose value="true"/>
-        <no-step-log value="true"/>
+        <no-step-log value="false"/>
         <step-log.period value="5"/>
     </report>
 

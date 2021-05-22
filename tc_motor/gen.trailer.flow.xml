@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-22 19:06:57 by Eclipse SUMO od2trips Version 1.9.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="taz.add.xml"/>
+        <od-matrix-files value="od.txt"/>
+    </input>
+
+    <output>
+        <flow-output value="gen.trailer.flow.xml"/>
+    </output>
+
+    <processing>
+        <scale value="0.03"/>
+        <vtype value="trailer"/>
+        <prefix value="trailer"/>
+    </processing>
+
+    <defaults>
+        <departpos value="random"/>
+    </defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="trailer0" begin="0.00" end="3600.00" number="3" type="trailer" fromTaz="bottom" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer1" begin="0.00" end="3600.00" number="9" type="trailer" fromTaz="bottom" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer2" begin="0.00" end="3600.00" number="6" type="trailer" fromTaz="bottom" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer3" begin="0.00" end="3600.00" number="6" type="trailer" fromTaz="left" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer4" begin="0.00" end="3600.00" number="18" type="trailer" fromTaz="left" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer5" begin="0.00" end="3600.00" number="6" type="trailer" fromTaz="left" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer6" begin="0.00" end="3600.00" number="3" type="trailer" fromTaz="right" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer7" begin="0.00" end="3600.00" number="3" type="trailer" fromTaz="right" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer8" begin="0.00" end="3600.00" number="3" type="trailer" fromTaz="right" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer9" begin="0.00" end="3600.00" number="9" type="trailer" fromTaz="top" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer10" begin="0.00" end="3600.00" number="3" type="trailer" fromTaz="top" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="trailer11" begin="0.00" end="3600.00" number="9" type="trailer" fromTaz="top" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+</routes>

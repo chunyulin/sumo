@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-22 19:06:57 by Eclipse SUMO od2trips Version 1.9.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="taz.add.xml"/>
+        <od-matrix-files value="od.txt"/>
+    </input>
+
+    <output>
+        <flow-output value="gen.truck.flow.xml"/>
+    </output>
+
+    <processing>
+        <scale value="0.05"/>
+        <vtype value="truck"/>
+        <prefix value="truck"/>
+    </processing>
+
+    <defaults>
+        <departpos value="random"/>
+    </defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="truck0" begin="0.00" end="3600.00" number="5" type="truck" fromTaz="bottom" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck1" begin="0.00" end="3600.00" number="15" type="truck" fromTaz="bottom" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck2" begin="0.00" end="3600.00" number="10" type="truck" fromTaz="bottom" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck3" begin="0.00" end="3600.00" number="10" type="truck" fromTaz="left" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck4" begin="0.00" end="3600.00" number="30" type="truck" fromTaz="left" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck5" begin="0.00" end="3600.00" number="10" type="truck" fromTaz="left" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck6" begin="0.00" end="3600.00" number="5" type="truck" fromTaz="right" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck7" begin="0.00" end="3600.00" number="5" type="truck" fromTaz="right" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck8" begin="0.00" end="3600.00" number="5" type="truck" fromTaz="right" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck9" begin="0.00" end="3600.00" number="15" type="truck" fromTaz="top" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck10" begin="0.00" end="3600.00" number="5" type="truck" fromTaz="top" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="truck11" begin="0.00" end="3600.00" number="15" type="truck" fromTaz="top" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+</routes>

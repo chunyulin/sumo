@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-22 19:06:57 by Eclipse SUMO od2trips Version 1.9.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="taz.add.xml"/>
+        <od-matrix-files value="od.txt"/>
+    </input>
+
+    <output>
+        <flow-output value="gen.car.flow.xml"/>
+    </output>
+
+    <processing>
+        <scale value="1"/>
+        <vtype value="car"/>
+        <prefix value="car"/>
+    </processing>
+
+    <defaults>
+        <departpos value="random"/>
+    </defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="car0" begin="0.00" end="3600.00" number="100" type="car" fromTaz="bottom" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car1" begin="0.00" end="3600.00" number="300" type="car" fromTaz="bottom" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car2" begin="0.00" end="3600.00" number="200" type="car" fromTaz="bottom" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car3" begin="0.00" end="3600.00" number="200" type="car" fromTaz="left" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car4" begin="0.00" end="3600.00" number="600" type="car" fromTaz="left" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car5" begin="0.00" end="3600.00" number="200" type="car" fromTaz="left" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car6" begin="0.00" end="3600.00" number="100" type="car" fromTaz="right" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car7" begin="0.00" end="3600.00" number="100" type="car" fromTaz="right" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car8" begin="0.00" end="3600.00" number="100" type="car" fromTaz="right" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car9" begin="0.00" end="3600.00" number="300" type="car" fromTaz="top" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car10" begin="0.00" end="3600.00" number="100" type="car" fromTaz="top" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="car11" begin="0.00" end="3600.00" number="300" type="car" fromTaz="top" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+</routes>

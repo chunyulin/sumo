@@ -4,6 +4,46 @@
 2) Add detectos on netedit, or use ./add_detectors.bat to add detectors around all junction. (Only need to do once.)
 3) Run simulation "python ./tc.py --dt 0.5 --end 3600 -p real"
 
+## List of (33) connections: real senario
+-- Dongda to the south
+   0 (mR), 1 (R), 2 (m), 3 (mL), 4
+   5-7, 8(L)
+-- Kuyuan to the west
+   9 (mR), 10, 11 (mL), 12 (R), 13-14, 15(L)
+-- Dongda to the north
+   16 (mR), 17, 18 (mL)
+   19 (R), 20-23, 24-25 (L)
+-- Kuyuan to the east
+  26 (mR), 27, 28 (mL), 29 (R), 30-31, 32(L)
+  
+real   
+GGGGGGGGrrrrrrrrGGGGGGGGrrrrrrrrr
+yyyyyyyyrrrrrrrryyyyyyyyrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrGrrrrrrrrrrrrrrrGGrrrrrrr
+rrrrrrrryrrrrrrrrrrrrrrryyrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrGGGGGGGrrrrrrrrrrrrrrrrr  
+rrrrrrrrryyyyyyyrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrGGGGGGG 
+rrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyy
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+
+p1
+GGGGGGGGrrrrrrrrGGGGGGGGrrrrrrrrr
+yyyyyyyyrrrrrrrryyyyyyyyrrrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrGrrrrrrrrrrrrrrrGGrrrrrrr
+rrrrrrrryrrrrrrrrrrrrrrryyrrrrrrr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrGGGGGGGrrrrrrrrrrrGGGGGGr  
+rrrrrrrryyyyyyyrrrrrrrrrrryyyyyyr
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+rrrrrrrrrrrrrrrGrrrrrrrrrrrrrrrrG 
+rrrrrrrrrrrrrrryrrrrrrrrrrrrrrrry
+rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+  
 
 ## List of (42) connections: real senario
 -- Dongda to the south
@@ -45,18 +85,6 @@ rrrrrrrrrrrrGrrrrrrrrrrrrrrrrrGrrrrrrrrrr
 rrrrrrrrrrrryrrrrrrrrrrrrrrrrryrrrrrrrrrr
 rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
   
-## List of (32) connections: real senario
--- Dongda to the south
-   0 (mR), 1 (R), 2 (m), 3 (mL), 4-5
-   6-8, 9(L)
--- Kuyuan to the west
-   10 (mR), 11, 12 (mL), 13 (R), 14-15, 16(L)
--- Dongda to the north
-   17 (mR), 18, 19 (mL)
-   20 (R), 21-22, 23-24 (L)
--- Kuyuan to the east
-  25 (mR), 26, 27 (mL), 28 (R), 29, 30, 31(L)
-  
 
 ## Snippet
 python tools/osmGet.py   --bbox 120.596,24.195,120.615,24.222 -d c:\qubo\target
@@ -69,4 +97,10 @@ python "C:\Program Files (x86)\Eclipse\Sumo\tools\output\generateTLSE3Detectors.
 
 ### xml2csv
 python "C:\Program Files (x86)\Eclipse\Sumo\tools\xml\xml2csv.py" .\e1output.xml -o e1.csv
+
+### Plot
+python .\plt_single_summary.py -i .\summary.log
+python .\plt_e1.py -i .\e1output.xml
+python .\plt_e2.py -i .\e2output.xml
+python .\plt_e3.py -i .\e3output.xml
 

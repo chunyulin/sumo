@@ -1,0 +1,40 @@
+<additional>
+    <tlLogic id="A0" type="static" programID="real" offset="0">
+                                    
+        <phase duration="45" state="GGGGGGGGrrrrrrrrGGGGGGGGrrrrrrrrr"/>
+        <phase duration="4"  state="yyyyyyyyrrrrrrrryyyyyyyyrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrrrrrGrrrrrrrrrrrrrrrGGrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrryrrrrrrrrrrrrrrryyrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="22" state="rrrrrrrrrGGGGGGGrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrryyyyyyyrrrrrrrrrrrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="24" state="rrrrrrrrrrrrrrrrrrrrrrrrrrGGGGGGG"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrryyyyyyy"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+
+    <tlLogic id="A0" type="static" programID="p1" offset="0">
+        <phase duration="45" state="GGGGGGGGrrrrrrrrGGGGGGGGrrrrrrrrr"/>
+        <phase duration="4"  state="yyyyyyyyrrrrrrrryyyyyyyyrrrrrrrrr"/>
+        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrrrrrGrrrrrrrrrrrrrrrGGrrrrrrr"/>
+        <phase duration="4"  state="rrrrrrrryrrrrrrrrrrrrrrryyrrrrrrr"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="22" state="rrrrrrrrrGGGGGGrrrrrrrrrrrGGGGGGr"/>
+        <phase duration="4"  state="rrrrrrrrryyyyyyrrrrrrrrrrryyyyyyr"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="24" state="rrrrrrrrrrrrrrrGrrrrrrrrrrrrrrrrG"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrryrrrrrrrrrrrrrrrry"/>
+        <phase duration="4"  state="rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"/>
+    </tlLogic>
+      
+  <WAUT startProg="0" refTime="10" id="w1"><!--Start from t0=10s -->
+    <wautSwitch to="real" time="3600"></wautSwitch>
+    <wautSwitch to="p1"   time="3600"></wautSwitch>
+  </WAUT>
+
+  <wautJunction junctionID="A0" wautID="w1"></wautJunction>
+    
+</additional>

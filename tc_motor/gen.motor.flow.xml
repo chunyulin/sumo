@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-22 19:06:57 by Eclipse SUMO od2trips Version 1.9.1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="taz.add.xml"/>
+        <od-matrix-files value="od.txt"/>
+    </input>
+
+    <output>
+        <flow-output value="gen.motor.flow.xml"/>
+    </output>
+
+    <processing>
+        <scale value="0.7"/>
+        <vtype value="motor"/>
+        <prefix value="motor"/>
+    </processing>
+
+    <defaults>
+        <departpos value="random"/>
+    </defaults>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="motor0" begin="0.00" end="3600.00" number="70" type="motor" fromTaz="bottom" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor1" begin="0.00" end="3600.00" number="210" type="motor" fromTaz="bottom" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor2" begin="0.00" end="3600.00" number="140" type="motor" fromTaz="bottom" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor3" begin="0.00" end="3600.00" number="140" type="motor" fromTaz="left" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor4" begin="0.00" end="3600.00" number="420" type="motor" fromTaz="left" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor5" begin="0.00" end="3600.00" number="140" type="motor" fromTaz="left" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor6" begin="0.00" end="3600.00" number="70" type="motor" fromTaz="right" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor7" begin="0.00" end="3600.00" number="70" type="motor" fromTaz="right" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor8" begin="0.00" end="3600.00" number="70" type="motor" fromTaz="right" toTaz="top" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor9" begin="0.00" end="3600.00" number="210" type="motor" fromTaz="top" toTaz="bottom" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor10" begin="0.00" end="3600.00" number="70" type="motor" fromTaz="top" toTaz="left" departLane="free" departPos="random" departSpeed="max"/>
+    <flow id="motor11" begin="0.00" end="3600.00" number="210" type="motor" fromTaz="top" toTaz="right" departLane="free" departPos="random" departSpeed="max"/>
+</routes>
